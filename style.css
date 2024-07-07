@@ -74,7 +74,7 @@ body{
   flex-direction: column; 
   align-items: center;
   width: 25%;
-  border: 1px solid var(--rtc-color-5);
+  border: 1px solid var( --rtc-borderColor);
   border-radius: var(--rtc-border-radius);
   background-color: var(--rtc-color-3);
   padding: var(--rtc-padding-s);
@@ -116,15 +116,40 @@ body{
 
 select{
   cursor: pointer;
+  border-radius: var(--rtc-border-radius);
+  background-color: var(--rtc-color-3);
+}
+
+#filter > div ~ div {
+  padding: var(--rtc-padding-s);
+}
+
+#director{
+  margin: var(--rtc-margin-s);
 }
 
 #año{
   width: 100px;
+  margin: var(--rtc-margin-s)
 }
 
 /* BOTÓN */
 button{
   cursor: pointer;
+  border-radius: var(--rtc-border-radius);
+  background-color: var(--rtc-color-3);
+  border: 2px solid var(--rtc-borderColor);
+  padding: var(--rtc-padding-s);
+  transition: 0.20s;
+}
+
+button:hover{
+  transform: scale(1.1);
+}
+
+body > h2 {
+  text-align: center;
+  background-color: var(--rtc-color-3);
 }
 
 @media (max-width: 1058px){

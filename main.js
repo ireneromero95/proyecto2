@@ -218,43 +218,58 @@ filterSection.appendChild(divBtn);
 
 //FUNCIÓN PARA FILTRAR POR DIRECTOR
 
+const h2 = document.createElement("h2");
+const peliculasection = document.querySelector("#peliculas")
 
 const filtrar = (peliculas) => {
   const filtered = [];
-  for (const pelicula of peliculas) {
+  h2.textContent = "";
+
+  //Filtrando por año
+  if (inputYear.value == 0 && selectDirector.value != "Seleccionar un director"){
+    for (const pelicula of peliculas) {
       if (selectDirector.value == pelicula.director) {
           filtered.push(pelicula);
       }
-  }
-  const filtraño = []
-
-  for (const filtrada of filtered){
-    if (inputYear.value >= filtrada.year){
-      filtraño.push(filtrada);      
     }
-  }
-
-  if(filtered == 0){
-    for (const filtra2 of peliculas){
-      if (inputYear.value >= filtra2.year){
-        filtraño.push(filtra2);
+  } else if (inputYear.value != 0 && selectDirector.value != "Seleccionar un director"){
+    for (const pelicula of peliculas) {
+      if (pelicula.year < inputYear.value && selectDirector.value == pelicula.director){
+        filtered.push(pelicula)
+      }
+    }
+    
+  } else if(inputYear.value != 0 && selectDirector.value == "Seleccionar un director"){
+    for (const pelicula of peliculas) {
+      if (pelicula.year < inputYear.value){
+        filtered.push(pelicula)
       }
     }
   }
-  printPeliculas(filtraño);
 
+  if (filtered.length == 0){
+    h2.textContent = "Sugerencias"
+    
+    document.body.insertBefore(h2, peliculasection);
+    randoms = []
+    while (randoms.length < 3){
+      index = Math.floor(Math.random() * peliculas.length)
+        if (!randoms.includes(index)){
+          randoms.push(index);
+          random = peliculas[index];
+          filtered.push(random);
+        }
+      }
+    }
+  printPeliculas(filtered);
   if ((selectDirector.value == "Seleccionar un director") && (inputYear.value == 0)){
     printPeliculas(PELICULAS);
   }
-
-  if (filtraño == 0){
-    printPeliculas(filtered);
-  }
-}
-
+}  
+  
 selectDirector.addEventListener("change", (event) => {
   filtrar(PELICULAS);
-})
+});
 
 inputYear.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
